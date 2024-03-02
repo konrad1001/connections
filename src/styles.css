@@ -1,0 +1,44 @@
+p {
+    font-size: 1.0em;
+    color: #4a4a4a;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+}
+
+.row {
+    display: flex; 
+    justify-content: space-between;
+}
+
+.grid {
+    margin: auto;
+    width: 42%;
+    padding: 10px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5%;
+    
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+    margin-top: 30px;
+
+}
+
+.RoundButton {
+    width: 80px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: #ffff;
+    border-color: #4a4a4a;
+    cursor: pointer;
+
+}
