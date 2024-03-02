@@ -1,0 +1,78 @@
+.tile {
+    width: 140px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    border: none;
+    
+}
+
+.tile-item {
+    margin: 0px;
+    padding: 0px;
+    color:#333232;
+    
+}
+
+.group {
+    height: 80px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 5px;
+    border-radius: 8px;
+    background-color: #EFEFE6;
+    color: #333232;
+}
+
+.yellow {
+    background-color: #FBD534;
+    color: #ffffff;
+}
+
+.green {
+    background-color: #B6E352;
+    color: #ffffff;
+}
+
+.blue {
+    background-color: #739EEC;
+    color: #ffffff;
+}
+
+.purple {
+    background-color: #BB70C3;
+    color: #ffffff;
+}
+
+.selected {
+    background-color: #5A594E;
+    color: #ffffff;
+    animation: pulse 0.1s alternate; 
+}
+
+.idle {
+    background-color: #EFEFE6;
+    color: #333232;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+    }
