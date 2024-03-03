@@ -15,8 +15,8 @@ function App() {
     '🍒', '🍒', '🍒', '🍒'
   ]);
   const [numberOfSelected, setNumberOfSelected] = useState(0);
-  const [check, setCheck] = useState(false);
   const [gameStart , setGameStart] = useState(false);
+  const [hasWon, setHasWon] = useState(false);
 
   const [connectionsMade, setConnectionsMade] = useState(Array(4).fill(null));
 
@@ -92,6 +92,12 @@ function App() {
     rearrange(category, index);
     resetSelections();
 
+    console.log(connectionsMade);
+
+    if (!newConnections.includes(null)) {
+      setHasWon(false);
+    }
+
   }
 
   function rearrange(category, index) {
@@ -116,6 +122,7 @@ function App() {
 
     shuffle();
   }, []);
+
 
   return (
     <div>
