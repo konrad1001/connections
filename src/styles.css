@@ -20,8 +20,9 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     margin-top: 5%;
+    
     
 }
 
@@ -41,4 +42,18 @@ p {
     border-color: #4a4a4a;
     cursor: pointer;
 
+}
+
+.panel {
+    background-color: #EFEFE6;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    width: 50%;
+    
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
 }
