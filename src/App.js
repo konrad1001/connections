@@ -27,29 +27,26 @@ function App() {
   }
 ;
   useEffect(() => {
-    
     shuffle();
   }, []);
 
-  function initialise() {
-    let newItems = [];
-
-    let X = [
-      '🍎', '🍎', '🍎', '🍎',
-      '🍊', '🍊', '🍊', '🍊',
-      '🍉', '🍉', '🍉', '🍉',
-      '🍒', '🍒', '🍒', '🍒'
-    ];
-    
-    for (let category in connections) {
-      let itemsInCategory = connections[category];
-      itemsInCategory.forEach((item) => {
-        newItems.push(item);
-      });
+  useEffect(() => {
+    if (mistakes === 1) {
+      setTimeout(() => {
+        alert('You lost! Try again');
+      }, 500);
+     
     }
-    
-    setItems(X);
-  }
+  }, [mistakes]);
+
+  useEffect(() => {
+    if (connectionsMade[3]) {
+      setTimeout(() => {
+        alert('You won! 🎉');
+        setHasWon(true);
+      }, 100);
+    }
+  }, [connectionsMade])
 
 
   function handleClick(index) {
@@ -69,7 +66,7 @@ function App() {
   }
 
   function shuffle() {
-  
+    console.log(mistakes)
     let newItems = items.slice();
     let newSelections = selected.slice();
 
@@ -85,10 +82,6 @@ function App() {
     setSelected(newSelections);
   }
 
-  function getKeyByValue(object, value) {
-    return Object.keys(object).find(key => object[key] === value);
-  }
-  
   function checkSelection() {
     let selectedItems = items.filter((item, index) => selected[index]);
     
@@ -96,14 +89,14 @@ function App() {
       if (connections[category].every((val) => selectedItems.includes(val))) {
         console.log(category);
         makeConnection(category);
+        if (connectionsMade.every((val) => val !== null)) {
+          setHasWon(true);
+        }
         return;
       } 
     
     }
-
-    runMistake();
-    
-    
+    runMistake();      
   }
 
   function runMistake() {
@@ -128,10 +121,6 @@ function App() {
     rearrange(category, index);
     resetSelections();
 
-    if (!newConnections.includes(null)) {
-      setHasWon(false);
-    }
-
   }
 
   function rearrange(category, from) {
@@ -152,10 +141,13 @@ function App() {
 
   }
 
-  // useEffect(() => {
-  //   initialise();
-  //   shuffle();
-  // }, []);
+  function resetAll() {
+    setGameStart(false);
+    setHasWon(false);
+    setConnectionsMade(Array(4).fill(null));   
+    setItems(I);
+    setMistakes(0);
+  }
 
 
   return (
@@ -172,7 +164,7 @@ function App() {
                 <div className='row'>
                 {
                   [0, 1, 2, 3].map((index) => (
-                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} onSelect={() => handleClick(index)}/>
+                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} disable={mistakes===4} onSelect={() => handleClick(index)}/>
                   ))
                 }
               </div>
@@ -185,7 +177,7 @@ function App() {
                 <div className='row'>
                 {
                   [4, 5, 6, 7].map((index) => (
-                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} onSelect={() => handleClick(index)}/>
+                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} disable={mistakes===4} onSelect={() => handleClick(index)}/>
                   ))
                 }
               </div>
@@ -198,7 +190,7 @@ function App() {
                 <div className='row'>
                 {
                   [8, 9, 10, 11].map((index) => (
-                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} onSelect={() => handleClick(index)}/>
+                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} disable={mistakes===4} onSelect={() => handleClick(index)}/>
                   ))
                 }
               </div>
@@ -211,17 +203,27 @@ function App() {
                 <div className='row'>
                 {
                   [12, 13, 14, 15].map((index) => (
-                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} onSelect={() => handleClick(index)}/>
+                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} disable={mistakes===4} onSelect={() => handleClick(index)}/>
                   ))
                 }
               </div>
               )}
             </div>
-            <Mistakes count={mistakes}/>
+            {hasWon ? (
+              <p>Congrats 🎉</p>
+            ) : (
+              <Mistakes count={mistakes}/>   
+            )}
+            
             <div className='button-container'>
-              <button className='RoundButton' onClick={resetSelections}>Reset</button>
+              <button className='RoundButton' onClick={resetSelections}>Deselect</button>
               <button className='RoundButton'onClick={shuffle}>Shuffle</button>
-              <button className='RoundButton' onClick={checkSelection} disabled={numberOfSelected!==4}>Check</button>
+              {hasWon || mistakes===4 ? (
+                <button className='RoundButton' onClick={resetAll}>Play again</button>
+              ) : (
+                <button className='RoundButton' onClick={checkSelection} disabled={numberOfSelected!==4}>Check</button>
+              )}
+              
               <button 
                 style={{ background: 'transparent', border: 'none', cursor: 'pointer' }} 
                 onClick={() => setGameStart(false)}
@@ -235,7 +237,15 @@ function App() {
           <div className='panel'>
             <h1>Connections</h1>
             <p>Try to make four groups of four!</p>
-            <button className='RoundButton' onClick={() => setGameStart(true)}>Start</button>
+            <button 
+              className='RoundButton' 
+              onClick={() => {
+                setGameStart(true); 
+                // shuffle()
+              }}
+            >
+              Start
+            </button>
           </div>
         </div>
       )}
