@@ -65,6 +65,11 @@
     color: #333232;
 }
 
+.shake {
+    animation: shake 0.2s;
+    
+}
+
 .mistakes-panel {
     display: flex;
     justify-content: center;
@@ -97,5 +102,23 @@
     }
     100% {
         transform: scale(1);
+    }
+    }
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(2px);
+    }
+    50% {
+        transform: translateX(-2px);
+    }
+    75% {
+        transform: translateX(2px);
+    }
+    100% {
+        transform: translateX(-2px);
     }
     }

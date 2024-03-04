@@ -1,10 +1,19 @@
 import React from 'react'
 import './styles.css';
 
-const Tile = ({ item, select, onSelect }) => {
+const Tile = ({ item, select, onSelect, shaking }) => {
     
     return (
-        <button className={`tile ${select ? 'selected' : 'idle'}`} onClick={onSelect}>{item}</button>
+        <button className={`tile ${select ? 'selected' : 'idle'} ${shaking ? 'shake' : ''}`} 
+        onClick={onSelect}
+        disabled={false}
+        >
+            
+            {item}
+        
+        </button>
+
+        
     )
 }
 

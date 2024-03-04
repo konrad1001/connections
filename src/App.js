@@ -9,6 +9,7 @@ function App() {
 
   const I = ['🍎', '🍒', '🍓', '🍉', '😀', '😁', '😂', '🤣', '🚗', '🚕', '🚙', '🚓', '☀️', '🌤️', '⛅', '🌦️']
   const [selected, setSelected] = useState(Array(16).fill(false));
+  const [shakingTiles , setShakingTiles] = useState(Array(16).fill(false));
 
   const [items, setItems] = useState(I);
   const [numberOfSelected, setNumberOfSelected] = useState(0);
@@ -99,9 +100,22 @@ function App() {
       } 
     
     }
+
+    runMistake();
+    
+    
+  }
+
+  function runMistake() {
     setMistakes(mistakes + 1);
+    shake();
     resetSelections();
     
+  }
+
+  function shake() {
+    setShakingTiles(selected);
+    setTimeout(() => setShakingTiles(Array(16).fill(false)), 200);
   }
 
   function makeConnection(category) {
@@ -158,7 +172,7 @@ function App() {
                 <div className='row'>
                 {
                   [0, 1, 2, 3].map((index) => (
-                    <Tile item={items[index]} select={selected[index]} onSelect={() => handleClick(index)}/>
+                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} onSelect={() => handleClick(index)}/>
                   ))
                 }
               </div>
@@ -171,7 +185,7 @@ function App() {
                 <div className='row'>
                 {
                   [4, 5, 6, 7].map((index) => (
-                    <Tile item={items[index]} select={selected[index]} onSelect={() => handleClick(index)}/>
+                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} onSelect={() => handleClick(index)}/>
                   ))
                 }
               </div>
@@ -184,7 +198,7 @@ function App() {
                 <div className='row'>
                 {
                   [8, 9, 10, 11].map((index) => (
-                    <Tile item={items[index]} select={selected[index]} onSelect={() => handleClick(index)}/>
+                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} onSelect={() => handleClick(index)}/>
                   ))
                 }
               </div>
@@ -197,7 +211,7 @@ function App() {
                 <div className='row'>
                 {
                   [12, 13, 14, 15].map((index) => (
-                    <Tile item={items[index]} select={selected[index]} onSelect={() => handleClick(index)}/>
+                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} onSelect={() => handleClick(index)}/>
                   ))
                 }
               </div>
