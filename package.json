@@ -2,7 +2,7 @@
   "name": "connections",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://konrad1001.github.io/connections",
+  "homepage": "https://konrad1001.github.io/connections",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
