@@ -1,32 +1,30 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Tile, TileRow, Mistakes } from './components';
-import './styles.css';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons';
 
-function App() {
+import './styles.css';
+import data from './data/data.json'
 
-  const I = ['🍎', '🍒', '🍓', '🍉', '😀', '😁', '😂', '🤣', '🚗', '🚕', '🚙', '🚓', '☀️', '🌤️', '⛅', '🌦️']
+function App() {
   const [selected, setSelected] = useState(Array(16).fill(false));
   const [shakingTiles , setShakingTiles] = useState(Array(16).fill(false));
 
-  const [items, setItems] = useState(I);
+  const [items, setItems] = useState(data.Items);
   const [numberOfSelected, setNumberOfSelected] = useState(0);
   const [gameStart , setGameStart] = useState(false);
   const [hasWon, setHasWon] = useState(false);
   const [mistakes, setMistakes] = useState(0);
 
   const [connectionsMade, setConnectionsMade] = useState(Array(4).fill(null));
+  const connections = data.Connections
 
-  const connections = {
-    'Red Fruits': ['🍎', '🍒', '🍓', '🍉'],
-    'Smiley Faces': ['😀', '😁', '😂', '🤣'],
-    'Modes of transport': ['🚗', '🚕', '🚙', '🚓'],
-    'Weather': ['☀️', '🌤️', '⛅', '🌦️']
-  }
-;
   useEffect(() => {
+    console.log(data.Connections);
+    console.log(data.Items);
+    
     shuffle();
   }, []);
 
@@ -144,7 +142,7 @@ function App() {
     setGameStart(false);
     setHasWon(false);
     setConnectionsMade(Array(4).fill(null));   
-    setItems(I);
+    setItems(data.Items);
     setMistakes(0);
   }
 
