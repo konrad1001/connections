@@ -21,9 +21,7 @@ p {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    margin-top: 5%;
-    
-    
+    margin-top: 3%;
 }
 
 .button-container {
@@ -50,10 +48,21 @@ p {
     padding: 20px;
     margin-top: 20px;
     width: 50%;
-    
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        margin-top: 10%;
+    }
+    .grid {
+        width: 80%;
+    }
+    .button-container {
+        width: 80%;
+    }
+    
 }

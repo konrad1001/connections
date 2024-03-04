@@ -244,7 +244,7 @@ function App() {
                 // shuffle()
               }}
             >
-              Start
+              Play
             </button>
           </div>
         </div>
