@@ -7,31 +7,47 @@ import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons';
 
 function App() {
 
+  const I = ['🍎', '🍒', '🍓', '🍉', '😀', '😁', '😂', '🤣', '🚗', '🚕', '🚙', '🚓', '☀️', '🌤️', '⛅', '🌦️']
   const [selected, setSelected] = useState(Array(16).fill(false));
-  const [items, setItems] = useState([
-    '🍎', '🍎', '🍎', '🍎',
-    '🍊', '🍊', '🍊', '🍊',
-    '🍉', '🍉', '🍉', '🍉',
-    '🍒', '🍒', '🍒', '🍒'
-  ]);
+
+  const [items, setItems] = useState(I);
   const [numberOfSelected, setNumberOfSelected] = useState(0);
   const [gameStart , setGameStart] = useState(false);
   const [hasWon, setHasWon] = useState(false);
+  const [mistakes, setMistakes] = useState(0);
 
   const [connectionsMade, setConnectionsMade] = useState(Array(4).fill(null));
 
-  // const connections = {
-  //   '🍎': 'Apples',
-  //   '🍊': 'Oranges',
-  //   '🍉': 'Watermelons',
-  //   '🍒': 'Cherries'
-  // }
-
   const connections = {
-    'Apples': '🍎',
-    'Oranges': '🍊',
-    'Watermelons': '🍉',
-    'Cherries': '🍒'
+    'Red Fruits': ['🍎', '🍒', '🍓', '🍉'],
+    'Smiley Faces': ['😀', '😁', '😂', '🤣'],
+    'Modes of transport': ['🚗', '🚕', '🚙', '🚓'],
+    'Weather': ['☀️', '🌤️', '⛅', '🌦️']
+  }
+;
+  useEffect(() => {
+    
+    shuffle();
+  }, []);
+
+  function initialise() {
+    let newItems = [];
+
+    let X = [
+      '🍎', '🍎', '🍎', '🍎',
+      '🍊', '🍊', '🍊', '🍊',
+      '🍉', '🍉', '🍉', '🍉',
+      '🍒', '🍒', '🍒', '🍒'
+    ];
+    
+    for (let category in connections) {
+      let itemsInCategory = connections[category];
+      itemsInCategory.forEach((item) => {
+        newItems.push(item);
+      });
+    }
+    
+    setItems(X);
   }
 
 
@@ -52,6 +68,7 @@ function App() {
   }
 
   function shuffle() {
+  
     let newItems = items.slice();
     let newSelections = selected.slice();
 
@@ -71,15 +88,20 @@ function App() {
     return Object.keys(object).find(key => object[key] === value);
   }
   
-
   function checkSelection() {
     let selectedItems = items.filter((item, index) => selected[index]);
-
-    if (selectedItems.every((val, i, arr) => val === arr[0])) {
-      makeConnection(getKeyByValue(connections, selectedItems[0]));
-    } else {
-      resetSelections();
+    
+    for(let category in connections) {
+      if (connections[category].every((val) => selectedItems.includes(val))) {
+        console.log(category);
+        makeConnection(category);
+        return;
+      } 
+    
     }
+    setMistakes(mistakes + 1);
+    resetSelections();
+    
   }
 
   function makeConnection(category) {
@@ -92,24 +114,22 @@ function App() {
     rearrange(category, index);
     resetSelections();
 
-    console.log(connectionsMade);
-
     if (!newConnections.includes(null)) {
       setHasWon(false);
     }
 
   }
 
-  function rearrange(category, index) {
-    index = index*4;
+  function rearrange(category, from) {
+    from = from*4;
     let count = 0;
     let newItems = items.slice();
-
-    for (let i = index; i < newItems.length; i++) {
+    
+    for (let i = from; i < newItems.length; i++) {
       
-      if (newItems[i] === connections[category]) {
+      if (connections[category].includes(newItems[i])) {
         //swap with element at index + count
-        [newItems[i], newItems[index + count]] = [newItems[index + count], newItems[i]];
+        [newItems[i], newItems[from + count]] = [newItems[from + count], newItems[i]];
         count++;
       }
     }
@@ -118,10 +138,10 @@ function App() {
 
   }
 
-  useEffect(() => {
-
-    shuffle();
-  }, []);
+  // useEffect(() => {
+  //   initialise();
+  //   shuffle();
+  // }, []);
 
 
   return (
@@ -183,7 +203,7 @@ function App() {
               </div>
               )}
             </div>
-            <Mistakes />
+            <Mistakes count={mistakes}/>
             <div className='button-container'>
               <button className='RoundButton' onClick={resetSelections}>Reset</button>
               <button className='RoundButton'onClick={shuffle}>Shuffle</button>
