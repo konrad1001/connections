@@ -30,7 +30,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (mistakes === 1) {
+    if (mistakes === 4) {
       setTimeout(() => {
         alert('You lost! Try again');
       }, 500);
