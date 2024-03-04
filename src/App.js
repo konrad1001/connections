@@ -4,6 +4,7 @@ import { Tile, TileRow, Mistakes } from './components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 import './styles.css';
 import data from './data/data.json'
@@ -47,7 +48,7 @@ function App() {
   }, [connectionsMade])
 
 
-  function ClickTile(index) {
+  function clickTile(index) {
     if (numberOfSelected === 4 && !selected[index]) {
       return;
     }
@@ -150,7 +151,7 @@ function App() {
   return (
     <div>
       {gameStart ? (
-            <div className='container'>
+          <div className='container'>
             <p>Create four groups of four!</p>
             <div className='grid'>
               {connectionsMade[0] ? (
@@ -161,7 +162,7 @@ function App() {
                 <div className='row'>
                 {
                   [0, 1, 2, 3].map((index) => (
-                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} disable={mistakes===4} onSelect={() => ClickTile(index)}/>
+                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} disable={mistakes===4} onSelect={() => clickTile(index)}/>
                   ))
                 }
               </div>
@@ -174,7 +175,7 @@ function App() {
                 <div className='row'>
                 {
                   [4, 5, 6, 7].map((index) => (
-                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} disable={mistakes===4} onSelect={() => ClickTile(index)}/>
+                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} disable={mistakes===4} onSelect={() => clickTile(index)}/>
                   ))
                 }
               </div>
@@ -187,7 +188,7 @@ function App() {
                 <div className='row'>
                 {
                   [8, 9, 10, 11].map((index) => (
-                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} disable={mistakes===4} onSelect={() => ClickTile(index)}/>
+                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} disable={mistakes===4} onSelect={() => clickTile(index)}/>
                   ))
                 }
               </div>
@@ -200,7 +201,7 @@ function App() {
                 <div className='row'>
                 {
                   [12, 13, 14, 15].map((index) => (
-                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} disable={mistakes===4} onSelect={() => ClickTile(index)}/>
+                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} disable={mistakes===4} onSelect={() => clickTile(index)}/>
                   ))
                 }
               </div>
@@ -226,6 +227,7 @@ function App() {
                 onClick={() => setGameStart(false)}
               >
                 <FontAwesomeIcon icon={faCircleQuestion} size='xl'/>
+
               </button>
             </div>
           </div>
@@ -244,9 +246,21 @@ function App() {
               Play
             </button>
           </div>
+          
         </div>
+        
       )}
+      <div className='footer'>
+      <p>Connections made with React by Konrad Painta</p>
+      <FontAwesomeIcon 
+      icon={faGithub} 
+      size='lg' 
+      style={{marginLeft: '10px', color: '#5A594E', cursor: 'pointer'}} 
+      onClick={() => window.open('https://github.com/konrad1001/connections')}
+      />
+      </div>
     </div>
+    
   );
 }
 
