@@ -49,7 +49,7 @@ function App() {
   }, [connectionsMade])
 
 
-  function handleClick(index) {
+  function ClickTile(index) {
     if (numberOfSelected === 4 && !selected[index]) {
       return;
     }
@@ -60,13 +60,12 @@ function App() {
     
   }
 
-  function resetSelections() {
+  function deselectAll() {
     setSelected(Array(16).fill(false));
     setNumberOfSelected(0);
   }
 
   function shuffle() {
-    console.log(mistakes)
     let newItems = items.slice();
     let newSelections = selected.slice();
 
@@ -96,13 +95,13 @@ function App() {
       } 
     
     }
-    runMistake();      
+    makeMistake();      
   }
 
-  function runMistake() {
+  function makeMistake() {
     setMistakes(mistakes + 1);
     shake();
-    resetSelections();
+    deselectAll();
     
   }
 
@@ -119,7 +118,7 @@ function App() {
     setConnectionsMade(newConnections);
     
     rearrange(category, index);
-    resetSelections();
+    deselectAll();
 
   }
 
@@ -164,7 +163,7 @@ function App() {
                 <div className='row'>
                 {
                   [0, 1, 2, 3].map((index) => (
-                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} disable={mistakes===4} onSelect={() => handleClick(index)}/>
+                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} disable={mistakes===4} onSelect={() => ClickTile(index)}/>
                   ))
                 }
               </div>
@@ -177,7 +176,7 @@ function App() {
                 <div className='row'>
                 {
                   [4, 5, 6, 7].map((index) => (
-                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} disable={mistakes===4} onSelect={() => handleClick(index)}/>
+                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} disable={mistakes===4} onSelect={() => ClickTile(index)}/>
                   ))
                 }
               </div>
@@ -190,7 +189,7 @@ function App() {
                 <div className='row'>
                 {
                   [8, 9, 10, 11].map((index) => (
-                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} disable={mistakes===4} onSelect={() => handleClick(index)}/>
+                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} disable={mistakes===4} onSelect={() => ClickTile(index)}/>
                   ))
                 }
               </div>
@@ -203,20 +202,20 @@ function App() {
                 <div className='row'>
                 {
                   [12, 13, 14, 15].map((index) => (
-                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} disable={mistakes===4} onSelect={() => handleClick(index)}/>
+                    <Tile item={items[index]} select={selected[index]} shaking={shakingTiles[index]} disable={mistakes===4} onSelect={() => ClickTile(index)}/>
                   ))
                 }
               </div>
               )}
             </div>
             {hasWon ? (
-              <p>Congrats 🎉</p>
+              <p>Press the button below to play again!</p>
             ) : (
               <Mistakes count={mistakes}/>   
             )}
             
             <div className='button-container'>
-              <button className='RoundButton' onClick={resetSelections}>Deselect</button>
+              <button className='RoundButton' onClick={deselectAll}>Deselect</button>
               <button className='RoundButton'onClick={shuffle}>Shuffle</button>
               {hasWon || mistakes===4 ? (
                 <button className='RoundButton' onClick={resetAll}>Play again</button>

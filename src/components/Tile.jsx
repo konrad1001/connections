@@ -7,10 +7,8 @@ const Tile = ({ item, select, onSelect, shaking, disable }) => {
         <button className={`tile ${select ? 'selected' : 'idle'} ${shaking ? 'shake' : ''} ${disable ? 'disabled' : ''}`} 
         onClick={onSelect}
         disabled={disable}
-        >
-            
-            {item}
-        
+        >       
+            {item}    
         </button>
 
         
