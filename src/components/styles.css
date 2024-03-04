@@ -1,3 +1,11 @@
+h3 {
+    font-size: 1.0em;
+    color: #000000;
+    font-family: 'Open Sans', 'San Francisco', sans-serif;
+    text-align: center;
+
+}
+
 .tile {
     width: 140px;
     height: 80px;
@@ -91,7 +99,6 @@
 }
 
 .dot {
-    
     margin-left: 10px;
     width: 10px;
     height: 10px;
