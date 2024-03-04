@@ -65,6 +65,29 @@
     color: #333232;
 }
 
+.mistakes-panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+}
+
+.dot {
+    
+    margin-left: 10px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #5A594E;
+}
+
 @keyframes pulse {
     0% {
         transform: scale(1);
